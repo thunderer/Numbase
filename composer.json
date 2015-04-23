@@ -1,0 +1,25 @@
+{
+    "name": "thunderer/numbase",
+    "description": "Convert any number between arbitrary bases",
+    "keywords": ["number", "base", "converter"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tomasz Kowalczyk",
+            "email": "tomasz@kowalczyk.cc"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "ext-gmp": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Thunder\\Numbase\\": "src/",
+            "Thunder\\Numbase\\Tests\\": "tests/"
+        }
+    }
+}
