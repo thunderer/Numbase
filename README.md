@@ -1,10 +1,10 @@
 # Numbase
 
 [![Build Status](https://travis-ci.org/thunderer/Numbase.png?branch=master)](https://travis-ci.org/thunderer/Numbase)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/5235d5e3-d112-48df-bc07-d4555aef293d/mini.png)](https://insight.sensiolabs.com/projects/5235d5e3-d112-48df-bc07-d4555aef293d)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/d68bec1a-f549-470a-ab71-0c00f09692a3/mini.png)](https://insight.sensiolabs.com/projects/d68bec1a-f549-470a-ab71-0c00f09692a3)
 [![License](https://poser.pugx.org/thunderer/numbase/license.svg)](https://packagist.org/packages/thunderer/numbase)
 [![Latest Stable Version](https://poser.pugx.org/thunderer/numbase/v/stable.svg)](https://packagist.org/packages/thunderer/numbase)
-[![Dependency Status](https://www.versioneye.com/user/projects/551d5385971f7847ca000002/badge.svg?style=flat)](https://www.versioneye.com/user/projects/551d5385971f7847ca000002)
+[![Dependency Status](https://www.versioneye.com/user/projects/5539612f1d2989f7ee00000b/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5539612f1d2989f7ee00000b)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/thunderer/Numbase/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/thunderer/Numbase/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/thunderer/Numbase/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/thunderer/Numbase/?branch=master)
 [![Code Climate](https://codeclimate.com/github/thunderer/Numbase/badges/gpa.svg)](https://codeclimate.com/github/thunderer/Numbase)
