@@ -15,13 +15,17 @@ final class FormatterTest extends \PHPUnit_Framework_TestCase
         {
         $symbols = new Base62Symbols();
 
-        $this->assertEquals('12', (new PermissiveFormatter(':'))->format(array(1, 2), $symbols));
-        $this->assertEquals('100:200', (new PermissiveFormatter(':'))->format(array(100, 200), $symbols));
+        $permissive = new PermissiveFormatter(':');
+        $strict = new StrictFormatter();
+        $digits = new DigitsFormatter();
 
-        $this->assertEquals('12', (new StrictFormatter())->format(array(1, 2), $symbols));
+        $this->assertEquals('12', $permissive->format(array(1, 2), $symbols));
+        $this->assertEquals('100:200', $permissive->format(array(100, 200), $symbols));
 
-        $this->assertEquals(array(1, 2), (new DigitsFormatter())->format(array(1, 2), $symbols));
-        $this->assertEquals(array(100, 200), (new DigitsFormatter())->format(array(100, 200), $symbols));
+        $this->assertEquals('12', $strict->format(array(1, 2), $symbols));
+
+        $this->assertEquals(array(1, 2), $digits->format(array(1, 2), $symbols));
+        $this->assertEquals(array(100, 200), $digits->format(array(100, 200), $symbols));
         }
 
     public function testExceptionInvalidSymbolStrictFormatter()
