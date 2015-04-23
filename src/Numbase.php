@@ -61,7 +61,7 @@ final class Numbase
             $digits[] = $div;
             }
 
-        return $digits;
+        return array_map('gmp_strval', $digits);
         }
 
     private function computeBaseNLength($number, $targetBase)
