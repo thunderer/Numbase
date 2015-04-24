@@ -2,6 +2,7 @@
 namespace Thunder\Numbase\Tests;
 
 use Thunder\Numbase\Formatter\PermissiveFormatter;
+use Thunder\Numbase\Formatter\StrictFormatter;
 use Thunder\Numbase\Numbase;
 use Thunder\Numbase\Symbols\ArraySymbols;
 use Thunder\Numbase\Symbols\Base62Symbols;
@@ -76,5 +77,19 @@ final class NumbaseTest extends \PHPUnit_Framework_TestCase
         return array_map(function($item) {
             return array($item);
             }, range(0, 1));
+        }
+
+    public function testExceptionOnInvalidSourceBase()
+        {
+        $numbase = new Numbase(new Base62Symbols(), new StrictFormatter());
+        $this->setExpectedException('InvalidArgumentException');
+        $numbase->convert(10, 1, 16);
+        }
+
+    public function testExceptionOnInvalidTargetBase()
+        {
+        $numbase = new Numbase(new Base62Symbols(), new StrictFormatter());
+        $this->setExpectedException('InvalidArgumentException');
+        $numbase->convert(10, 10, -20);
         }
     }

@@ -27,6 +27,12 @@ final class Numbase
      */
     public function convert($source, $sourceBase, $targetBase)
         {
+        if($sourceBase < 2 || $targetBase < 2)
+            {
+            $msg = 'Invalid source or target base, must be an integer greater than one!';
+            throw new \InvalidArgumentException(sprintf($msg));
+            }
+
         $base10 = $this->convertToBase10((string)$source, $sourceBase);
         $digits = $this->computeBaseNDigits($base10, $targetBase);
 
