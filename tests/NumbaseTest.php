@@ -52,10 +52,12 @@ final class NumbaseTest extends \PHPUnit_Framework_TestCase
             array('15', 10, 16, 'F'),
             array('zz', 62, 10, '3843'),
             array('3843', 10, 62, 'zz'),
+            array('-3843', 10, 62, '-zz'),
             array('100000', 10, 62, 'Q0u'),
             array('3843', 10, 16, 'F03'),
             array('65', 10, 2, '1000001'),
             array('1', 10, 10, '1'),
+            array('0', 16, 2, '0'),
             );
         }
 
@@ -76,7 +78,7 @@ final class NumbaseTest extends \PHPUnit_Framework_TestCase
         {
         return array_map(function($item) {
             return array($item);
-            }, range(0, 1));
+            }, range(-1, 1));
         }
 
     public function testExceptionOnInvalidSourceBase()
@@ -91,5 +93,12 @@ final class NumbaseTest extends \PHPUnit_Framework_TestCase
         $numbase = new Numbase(new Base62Symbols(), new StrictFormatter());
         $this->setExpectedException('InvalidArgumentException');
         $numbase->convert(10, 10, -20);
+        }
+
+    public function testExceptionOnEmptyNumber()
+        {
+        $numbase = new Numbase(new Base62Symbols(), new StrictFormatter());
+        $this->setExpectedException('InvalidArgumentException');
+        $numbase->convert('', 10, 10);
         }
     }

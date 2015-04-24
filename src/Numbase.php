@@ -24,6 +24,8 @@ final class Numbase
      * @param int $targetBase Target number base
      *
      * @return mixed
+     *
+     * @throws \InvalidArgumentException Invalid source base, target base or empty number
      */
     public function convert($source, $sourceBase, $targetBase)
         {
@@ -33,10 +35,24 @@ final class Numbase
             throw new \InvalidArgumentException(sprintf($msg));
             }
 
-        $base10 = $this->convertToBase10((string)$source, $sourceBase);
+        $source = (string)$source;
+        if(0 === mb_strlen($source))
+            {
+            $msg = 'How about a non-empty string?';
+            throw new \InvalidArgumentException($msg);
+            }
+
+        $sign = '';
+        if('-' === $source[0])
+            {
+            $sign = '-';
+            $source = substr($source, 1);
+            }
+
+        $base10 = $this->convertToBase10($source, $sourceBase);
         $digits = $this->computeBaseNDigits($base10, $targetBase);
 
-        return $this->formatter->format($digits, $this->symbols);
+        return $sign.$this->formatter->format($digits, $this->symbols);
         }
 
     private function convertToBase10($source, $sourceBase)
