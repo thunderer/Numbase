@@ -9,22 +9,25 @@ use Thunder\Numbase\SymbolsInterface;
  */
 final class PermissiveFormatter implements FormatterInterface
     {
+    private $symbols;
     private $separator;
 
-    public function __construct($separator)
+    public function __construct(SymbolsInterface $symbols, $separator)
         {
+        $this->symbols = $symbols;
         $this->separator = $separator;
         }
 
-    public function format(array $digits, SymbolsInterface $symbols)
+    public function format(array $digits, $signed)
         {
+        $sign = $signed ? '-' : '';
         try
             {
-            return implode('', array_map(array($symbols, 'getSymbol'), $digits));
+            return $sign.implode('', array_map(array($this->symbols, 'getSymbol'), $digits));
             }
         catch(\InvalidArgumentException $e)
             {
-            return implode($this->separator, $digits);
+            return $sign.implode($this->separator, $digits);
             }
         }
     }

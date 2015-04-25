@@ -1,6 +1,8 @@
 <?php
 namespace Thunder\Numbase\Tests;
 
+use Thunder\Numbase\Digits\GmpDigits;
+use Thunder\Numbase\Formatter\DigitsFormatter;
 use Thunder\Numbase\Formatter\PermissiveFormatter;
 use Thunder\Numbase\Formatter\StrictFormatter;
 use Thunder\Numbase\Numbase;
@@ -24,10 +26,9 @@ final class NumbaseTest extends \PHPUnit_Framework_TestCase
             .'abcdefghijklmnopqrstuvwxyz'
             .'';
 
-        $formatter = new PermissiveFormatter(':');
-        $base62 = new Numbase(new Base62Symbols(), $formatter);
-        $string = new Numbase(new StringSymbols($symbols), $formatter);
-        $array = new Numbase(new ArraySymbols(str_split($symbols, 1)), $formatter);
+        $base62 = Numbase::createDefault(new Base62Symbols());
+        $string = Numbase::createDefault(new StringSymbols($symbols));
+        $array = Numbase::createDefault(new ArraySymbols(str_split($symbols, 1)));
 
         $this->assertSame($result, $base62->convert($source, $from, $to));
         $this->assertSame($result, $string->convert($source, $from, $to));
@@ -70,7 +71,7 @@ final class NumbaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoop($num)
         {
-        $base62 = new Numbase(new Base62Symbols(), new PermissiveFormatter(':'));
+        $base62 = Numbase::createDefault();
         $this->assertSame((string)$num, $base62->convert($base62->convert($num, 10, 62), 62, 10));
         }
 
@@ -81,23 +82,29 @@ final class NumbaseTest extends \PHPUnit_Framework_TestCase
             }, range(-1, 1));
         }
 
+    public function testOtherFormatters()
+        {
+        $array = new Numbase(new GmpDigits(new Base62Symbols()), new DigitsFormatter());
+        $this->assertSame(array('-1', '0'), $array->convert(-10, 10, 10));
+        }
+
     public function testExceptionOnInvalidSourceBase()
         {
-        $numbase = new Numbase(new Base62Symbols(), new StrictFormatter());
+        $numbase = Numbase::createDefault();
         $this->setExpectedException('InvalidArgumentException');
         $numbase->convert(10, 1, 16);
         }
 
     public function testExceptionOnInvalidTargetBase()
         {
-        $numbase = new Numbase(new Base62Symbols(), new StrictFormatter());
+        $numbase = Numbase::createDefault();
         $this->setExpectedException('InvalidArgumentException');
         $numbase->convert(10, 10, -20);
         }
 
     public function testExceptionOnEmptyNumber()
         {
-        $numbase = new Numbase(new Base62Symbols(), new StrictFormatter());
+        $numbase = Numbase::createDefault();
         $this->setExpectedException('InvalidArgumentException');
         $numbase->convert('', 10, 10);
         }

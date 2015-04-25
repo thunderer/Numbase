@@ -15,23 +15,23 @@ final class FormatterTest extends \PHPUnit_Framework_TestCase
         {
         $symbols = new Base62Symbols();
 
-        $permissive = new PermissiveFormatter(':');
-        $strict = new StrictFormatter();
+        $permissive = new PermissiveFormatter($symbols, ':');
+        $strict = new StrictFormatter($symbols);
         $digits = new DigitsFormatter();
 
-        $this->assertEquals('12', $permissive->format(array(1, 2), $symbols));
-        $this->assertEquals('100:200', $permissive->format(array(100, 200), $symbols));
+        $this->assertEquals('12', $permissive->format(array(1, 2), false, $symbols));
+        $this->assertEquals('100:200', $permissive->format(array(100, 200), false, $symbols));
 
-        $this->assertEquals('12', $strict->format(array(1, 2), $symbols));
+        $this->assertEquals('12', $strict->format(array(1, 2), false, $symbols));
 
-        $this->assertEquals(array(1, 2), $digits->format(array(1, 2), $symbols));
-        $this->assertEquals(array(100, 200), $digits->format(array(100, 200), $symbols));
+        $this->assertEquals(array(1, 2), $digits->format(array(1, 2), false, $symbols));
+        $this->assertSame(array(100, 200), $digits->format(array(100, 200), false, $symbols));
         }
 
     public function testExceptionInvalidSymbolStrictFormatter()
         {
-        $formatter = new StrictFormatter();
+        $formatter = new StrictFormatter(new Base62Symbols());
         $this->setExpectedException('InvalidArgumentException');
-        $formatter->format(array(100), new Base62Symbols());
+        $formatter->format(array(100), false, new Base62Symbols());
         }
     }
