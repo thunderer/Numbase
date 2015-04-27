@@ -19,19 +19,19 @@ final class FormatterTest extends \PHPUnit_Framework_TestCase
         $strict = new StrictFormatter($symbols);
         $digits = new ArrayFormatter();
 
-        $this->assertEquals('12', $permissive->format(array(1, 2), false, $symbols));
-        $this->assertEquals('100:200', $permissive->format(array(100, 200), false, $symbols));
+        $this->assertEquals('12', $permissive->format(array(1, 2), false));
+        $this->assertEquals('100:200', $permissive->format(array(100, 200), false));
 
-        $this->assertEquals('12', $strict->format(array(1, 2), false, $symbols));
+        $this->assertEquals('12', $strict->format(array(1, 2), false));
 
-        $this->assertEquals(array(1, 2), $digits->format(array(1, 2), false, $symbols));
-        $this->assertSame(array(100, 200), $digits->format(array(100, 200), false, $symbols));
+        $this->assertEquals(array(1, 2), $digits->format(array(1, 2), false));
+        $this->assertSame(array(100, 200), $digits->format(array(100, 200), false));
         }
 
     public function testExceptionInvalidSymbolStrictFormatter()
         {
         $formatter = new StrictFormatter(new Base62Symbols());
         $this->setExpectedException('InvalidArgumentException');
-        $formatter->format(array(100), false, new Base62Symbols());
+        $formatter->format(array(100), false);
         }
     }
