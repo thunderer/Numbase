@@ -1,7 +1,7 @@
 <?php
 namespace Thunder\Numbase\Tests;
 
-use Thunder\Numbase\Formatter\DigitsFormatter;
+use Thunder\Numbase\Formatter\ArrayFormatter;
 use Thunder\Numbase\Formatter\PermissiveFormatter;
 use Thunder\Numbase\Formatter\StrictFormatter;
 use Thunder\Numbase\Symbols\Base62Symbols;
@@ -17,7 +17,7 @@ final class FormatterTest extends \PHPUnit_Framework_TestCase
 
         $permissive = new PermissiveFormatter($symbols, ':');
         $strict = new StrictFormatter($symbols);
-        $digits = new DigitsFormatter();
+        $digits = new ArrayFormatter();
 
         $this->assertEquals('12', $permissive->format(array(1, 2), false, $symbols));
         $this->assertEquals('100:200', $permissive->format(array(100, 200), false, $symbols));

@@ -9,7 +9,7 @@ interface FormatterInterface
     /**
      * Formats computed digits to a final result.
      *
-     * @param array $digits
+     * @param string[] $digits
      * @param bool $signed
      *
      * @return mixed

@@ -2,7 +2,7 @@
 namespace Thunder\Numbase;
 
 use Thunder\Numbase\Digits\GmpDigits;
-use Thunder\Numbase\Formatter\PermissiveFormatter;
+use Thunder\Numbase\Formatter\StrictFormatter;
 use Thunder\Numbase\Symbols\Base62Symbols;
 
 /**
@@ -23,7 +23,7 @@ final class Numbase
         {
         $symbols = $symbols ?: new Base62Symbols();
 
-        return new self(new GmpDigits($symbols), new PermissiveFormatter($symbols, ':'));
+        return new self(new GmpDigits($symbols), new StrictFormatter($symbols));
         }
 
     /**

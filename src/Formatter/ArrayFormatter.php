@@ -6,7 +6,7 @@ use Thunder\Numbase\FormatterInterface;
 /**
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
  */
-final class DigitsFormatter implements FormatterInterface
+final class ArrayFormatter implements FormatterInterface
     {
     public function format(array $digits, $signed)
         {
