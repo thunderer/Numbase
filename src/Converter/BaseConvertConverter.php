@@ -1,13 +1,13 @@
 <?php
-namespace Thunder\Numbase\Digits;
+namespace Thunder\Numbase\Converter;
 
-use Thunder\Numbase\DigitsInterface;
+use Thunder\Numbase\ConverterInterface;
 use Thunder\Numbase\SymbolsInterface;
 
 /**
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
  */
-final class BaseConvertDigits implements DigitsInterface
+final class BaseConvertConverter implements ConverterInterface
     {
     private $symbols;
 

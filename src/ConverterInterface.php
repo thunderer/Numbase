@@ -4,7 +4,7 @@ namespace Thunder\Numbase;
 /**
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
  */
-interface DigitsInterface
+interface ConverterInterface
     {
     /**
      * Converts number from source to target base and return digits array

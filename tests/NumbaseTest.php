@@ -1,7 +1,7 @@
 <?php
 namespace Thunder\Numbase\Tests;
 
-use Thunder\Numbase\Digits\GmpDigits;
+use Thunder\Numbase\Converter\GmpConverter;
 use Thunder\Numbase\Formatter\ArrayFormatter;
 use Thunder\Numbase\Numbase;
 use Thunder\Numbase\Symbols\ArraySymbols;
@@ -86,7 +86,7 @@ final class NumbaseTest extends \PHPUnit_Framework_TestCase
 
     public function testOtherFormatters()
         {
-        $array = new Numbase(new GmpDigits(new Base62Symbols()), new ArrayFormatter());
+        $array = new Numbase(new GmpConverter(new Base62Symbols()), new ArrayFormatter());
         $this->assertSame(array('-1', '0'), $array->convert(-10, 10, 10));
         }
 

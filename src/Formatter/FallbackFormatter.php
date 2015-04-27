@@ -7,7 +7,7 @@ use Thunder\Numbase\SymbolsInterface;
 /**
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
  */
-final class PermissiveFormatter implements FormatterInterface
+final class FallbackFormatter implements FormatterInterface
     {
     private $symbols;
     private $separator;

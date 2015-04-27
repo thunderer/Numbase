@@ -1,7 +1,7 @@
 <?php
 namespace Thunder\Numbase;
 
-use Thunder\Numbase\Digits\GmpDigits;
+use Thunder\Numbase\Converter\GmpConverter;
 use Thunder\Numbase\Formatter\StrictFormatter;
 use Thunder\Numbase\Symbols\Base62Symbols;
 
@@ -13,7 +13,7 @@ final class Numbase
     private $formatter;
     private $digits;
 
-    public function __construct(DigitsInterface $digits, FormatterInterface $formatter)
+    public function __construct(ConverterInterface $digits, FormatterInterface $formatter)
         {
         $this->formatter = $formatter;
         $this->digits = $digits;
@@ -23,30 +23,30 @@ final class Numbase
         {
         $symbols = $symbols ?: new Base62Symbols();
 
-        return new self(new GmpDigits($symbols), new StrictFormatter($symbols));
+        return new self(new GmpConverter($symbols), new StrictFormatter($symbols));
         }
 
     /**
      * Converts number with given base to another base. Do not forget to set
      * proper symbols set. Result type depends on the formatter implementation.
      *
-     * @param int|string $source Number to convert
-     * @param int $sourceBase Source number base
-     * @param int $targetBase Target number base
+     * @param int|string $number Number to convert
+     * @param int $fromBase Source number base
+     * @param int $toBase Target number base
      *
      * @return mixed Depends on formatter
      */
-    public function convert($source, $sourceBase, $targetBase)
+    public function convert($number, $fromBase, $toBase)
         {
         $signed = false;
-        $source = (string)$source;
-        if($source && '-' === $source[0])
+        $number = (string)$number;
+        if($number && '-' === $number[0])
             {
             $signed = true;
-            $source = substr($source, 1);
+            $number = substr($number, 1);
             }
 
-        $digits = $this->digits->getDigits($source, $sourceBase, $targetBase);
+        $digits = $this->digits->getDigits($number, $fromBase, $toBase);
 
         return $this->formatter->format($digits, $signed);
         }

@@ -1,9 +1,9 @@
 <?php
 namespace Thunder\Numbase\Tests;
 
-use Thunder\Numbase\Digits\BaseConvertDigits;
-use Thunder\Numbase\Digits\GmpDigits;
-use Thunder\Numbase\Digits\GmpStrvalDigits;
+use Thunder\Numbase\Converter\BaseConvertConverter;
+use Thunder\Numbase\Converter\GmpConverter;
+use Thunder\Numbase\Converter\GmpStrvalConverter;
 use Thunder\Numbase\Symbols\Base62Symbols;
 
 /**
@@ -13,7 +13,7 @@ final class DigitsTest extends \PHPUnit_Framework_TestCase
     {
     public function testGmpDigits()
         {
-        $digits = new GmpDigits(new Base62Symbols());
+        $digits = new GmpConverter(new Base62Symbols());
 
         $this->assertSame(explode(':', '1:20:82:19:36:27:27:76:96:60:86:61:74:24:84:24:79:72:19:1'),
             $digits->getDigits(gmp_strval(gmp_pow(10, 38), 10), 10, 99));
@@ -22,7 +22,7 @@ final class DigitsTest extends \PHPUnit_Framework_TestCase
 
     public function testGmpStrvalDigits()
         {
-        $digits = new GmpStrvalDigits(new Base62Symbols());
+        $digits = new GmpStrvalConverter(new Base62Symbols());
 
         $this->assertSame(explode(':', '2:17:59:32:31:60:4:18:0:7:60:7:54:25:34:11:18:35:1:58:47:14'),
             $digits->getDigits(gmp_strval(gmp_pow(10, 38), 10), 10, 62));
@@ -32,28 +32,28 @@ final class DigitsTest extends \PHPUnit_Framework_TestCase
 
     public function testGmpStrvalExceptionOnInvalidSourceBase()
         {
-        $digits = new GmpStrvalDigits(new Base62Symbols());
+        $digits = new GmpStrvalConverter(new Base62Symbols());
         $this->setExpectedException('InvalidArgumentException');
         $digits->getDigits('10', 1, 10);
         }
 
     public function testGmpStrvalExceptionOnInvalidTargetBase()
         {
-        $digits = new GmpStrvalDigits(new Base62Symbols());
+        $digits = new GmpStrvalConverter(new Base62Symbols());
         $this->setExpectedException('InvalidArgumentException');
         $digits->getDigits('10', 10, 63);
         }
 
     public function testGmpStrvalExceptionOnEmptyNumber()
         {
-        $digits = new GmpStrvalDigits(new Base62Symbols());
+        $digits = new GmpStrvalConverter(new Base62Symbols());
         $this->setExpectedException('InvalidArgumentException');
         $digits->getDigits('', 10, 20);
         }
 
     public function testBaseConvertDigits()
         {
-        $digits = new BaseConvertDigits(new Base62Symbols());
+        $digits = new BaseConvertConverter(new Base62Symbols());
 
         $this->assertSame(explode(':', '4:16:12:8:33:15:15:6:34:11:20:0:20:28:32:4:24:0:32:4:12:16:12:28:32'),
             $digits->getDigits(gmp_strval(gmp_pow(10, 38), 10), 10, 36));
@@ -63,21 +63,21 @@ final class DigitsTest extends \PHPUnit_Framework_TestCase
 
     public function testBaseConvertExceptionOnInvalidSourceBase()
         {
-        $digits = new BaseConvertDigits(new Base62Symbols());
+        $digits = new BaseConvertConverter(new Base62Symbols());
         $this->setExpectedException('InvalidArgumentException');
         $digits->getDigits('10', 40, 10);
         }
 
     public function testBaseConvertExceptionOnInvalidTargetBase()
         {
-        $digits = new BaseConvertDigits(new Base62Symbols());
+        $digits = new BaseConvertConverter(new Base62Symbols());
         $this->setExpectedException('InvalidArgumentException');
         $digits->getDigits('10', 10, 40);
         }
 
     public function testBaseConvertExceptionOnEmptyNumber()
         {
-        $digits = new BaseConvertDigits(new Base62Symbols());
+        $digits = new BaseConvertConverter(new Base62Symbols());
         $this->setExpectedException('InvalidArgumentException');
         $digits->getDigits('', 10, 20);
         }

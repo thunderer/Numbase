@@ -2,7 +2,7 @@
 namespace Thunder\Numbase\Tests;
 
 use Thunder\Numbase\Formatter\ArrayFormatter;
-use Thunder\Numbase\Formatter\PermissiveFormatter;
+use Thunder\Numbase\Formatter\FallbackFormatter;
 use Thunder\Numbase\Formatter\StrictFormatter;
 use Thunder\Numbase\Symbols\Base62Symbols;
 
@@ -15,7 +15,7 @@ final class FormatterTest extends \PHPUnit_Framework_TestCase
         {
         $symbols = new Base62Symbols();
 
-        $permissive = new PermissiveFormatter($symbols, ':');
+        $permissive = new FallbackFormatter($symbols, ':');
         $strict = new StrictFormatter($symbols);
         $digits = new ArrayFormatter();
 
