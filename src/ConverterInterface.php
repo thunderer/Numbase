@@ -15,5 +15,5 @@ interface ConverterInterface
      *
      * @return array
      */
-    public function getDigits($number, $sourceBase, $targetBase);
+    public function convert($number, $sourceBase, $targetBase);
     }

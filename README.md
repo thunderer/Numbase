@@ -65,7 +65,7 @@ assert('20' === $numbase->convert('#!', 10, 10));
 assert('-30' === $numbase->convert('-$!', 10, 10));
 ```
 
-Get array of digit values rather than final number (for bases too large for any symbol set):
+Get array of digit values (for bases too large for any symbol set):
 
 ```php
 $numbase = new Numbase(new GmpDigits(new Base62Symbols()), new ArrayFormatter());
@@ -91,11 +91,11 @@ There are several implementations of each concept bundled with this library, for
   * **BaseConvertConverter**: uses `base_convert()` to convert between bases 2 and 32,
 * formatters:
   * **ArrayFormatter**: returns raw array of digits numbers,
-  * **StrictFormatter**: returns target number as string, throws an exception when digit is not found in symbols set,
-  * **FallbackFormatter**: just like StrictFormatter, but returns string with digit values separated by separator when any digit is not found is symbols set,
+  * **StrictFormatter**: returns number as string, throws exception when digit is not found in symbols set,
+  * **FallbackFormatter**: returns number as string, but returns string with digit values separated by configured separator when any digit is not found in symbols set,
 * symbols:
-  * **ArraySymbols**: takes associative array value => symbol,
-  * **Base62Symbols**: contains alphanumeric set of symbols 0-9A-Za-z up to base 62,
+  * **ArraySymbols**: takes associative `array(value => symbol)`,
+  * **Base62Symbols**: contains alphanumeric set of symbols `0-9A-Za-z up` to base 62,
   * **StringSymbols**: takes string and splits it assigning consecutive values to each character.
 
 The named constructor `Numbase::createDefault()` uses `GmpConverter`, `StrictFormatter` and `Base62Symbols` as defaults.

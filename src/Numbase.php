@@ -11,12 +11,12 @@ use Thunder\Numbase\Symbols\Base62Symbols;
 final class Numbase
     {
     private $formatter;
-    private $digits;
+    private $converter;
 
-    public function __construct(ConverterInterface $digits, FormatterInterface $formatter)
+    public function __construct(ConverterInterface $converter, FormatterInterface $formatter)
         {
         $this->formatter = $formatter;
-        $this->digits = $digits;
+        $this->converter = $converter;
         }
 
     public static function createDefault(SymbolsInterface $symbols = null)
@@ -46,7 +46,7 @@ final class Numbase
             $number = substr($number, 1);
             }
 
-        $digits = $this->digits->getDigits($number, $fromBase, $toBase);
+        $digits = $this->converter->convert($number, $fromBase, $toBase);
 
         return $this->formatter->format($digits, $signed);
         }

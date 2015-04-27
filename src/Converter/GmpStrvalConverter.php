@@ -16,7 +16,7 @@ final class GmpStrvalConverter implements ConverterInterface
         $this->symbols = $symbols;
         }
 
-    public function getDigits($source, $sourceBase, $targetBase)
+    public function convert($source, $sourceBase, $targetBase)
         {
         if($sourceBase < 2 || $targetBase < 2 || $sourceBase > 62 || $targetBase > 62)
             {
