@@ -9,22 +9,22 @@ use Thunder\Numbase\Symbols\Base62Symbols;
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
  */
 final class Numbase
-    {
+{
     private $formatter;
     private $converter;
 
     public function __construct(ConverterInterface $converter, FormatterInterface $formatter)
-        {
+    {
         $this->formatter = $formatter;
         $this->converter = $converter;
-        }
+    }
 
     public static function createDefault(SymbolsInterface $symbols = null)
-        {
+    {
         $symbols = $symbols ?: new Base62Symbols();
 
         return new self(new GmpConverter($symbols), new StrictFormatter($symbols));
-        }
+    }
 
     /**
      * Converts number with given base to another base. Do not forget to set
@@ -37,17 +37,16 @@ final class Numbase
      * @return mixed Depends on formatter
      */
     public function convert($number, $fromBase, $toBase)
-        {
+    {
         $signed = false;
         $number = (string)$number;
-        if($number && '-' === $number[0])
-            {
+        if($number && '-' === $number[0]) {
             $signed = true;
             $number = substr($number, 1);
-            }
+        }
 
         $digits = $this->converter->convert($number, $fromBase, $toBase);
 
         return $this->formatter->format($digits, $signed);
-        }
     }
+}

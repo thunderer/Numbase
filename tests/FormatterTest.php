@@ -10,9 +10,9 @@ use Thunder\Numbase\Symbols\Base62Symbols;
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
  */
 final class FormatterTest extends \PHPUnit_Framework_TestCase
-    {
+{
     public function testFormatters()
-        {
+    {
         $symbols = new Base62Symbols();
 
         $permissive = new FallbackFormatter($symbols, ':');
@@ -26,12 +26,12 @@ final class FormatterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(array(1, 2), $digits->format(array(1, 2), false));
         $this->assertSame(array(100, 200), $digits->format(array(100, 200), false));
-        }
+    }
 
     public function testExceptionInvalidSymbolStrictFormatter()
-        {
+    {
         $formatter = new StrictFormatter(new Base62Symbols());
         $this->setExpectedException('InvalidArgumentException');
         $formatter->format(array(100), false);
-        }
     }
+}

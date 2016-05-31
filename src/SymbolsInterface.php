@@ -5,7 +5,7 @@ namespace Thunder\Numbase;
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
  */
 interface SymbolsInterface
-    {
+{
     /**
      * Returns symbol matching given value.
      *
@@ -41,4 +41,4 @@ interface SymbolsInterface
      * @return bool
      */
     public function hasValue($value);
-    }
+}
