@@ -19,20 +19,15 @@ final class GmpConverter implements ConverterInterface
     public function convert($source, $sourceBase, $targetBase)
     {
         if($sourceBase < 2 || $targetBase < 2) {
-            $msg = 'Invalid source or target base, must be an integer greater than one!';
-            throw new \InvalidArgumentException(sprintf($msg));
+            throw new \InvalidArgumentException(sprintf('Invalid source or target base, must be an integer greater than one!'));
         }
 
         $source = (string)$source;
-        if(0 === mb_strlen($source)) {
-            $msg = 'How about a non-empty string?';
-            throw new \InvalidArgumentException($msg);
+        if('' === $source) {
+            throw new \InvalidArgumentException('How about a non-empty string?');
         }
 
-        $base10 = $this->convertToBase10($source, $sourceBase);
-        $digits = $this->computeBaseNDigits($base10, $targetBase);
-
-        return $digits;
+        return $this->computeBaseNDigits($this->convertToBase10($source, $sourceBase), $targetBase);
     }
 
     private function convertToBase10($source, $sourceBase)
@@ -68,7 +63,7 @@ final class GmpConverter implements ConverterInterface
     {
         $digits = 0;
 
-        while(gmp_cmp($number, gmp_pow($targetBase, $digits)) != -1) {
+        while(gmp_cmp($number, gmp_pow($targetBase, $digits)) >= 0) {
             $digits++;
         }
 

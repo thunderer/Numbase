@@ -24,7 +24,7 @@ final class GmpStrvalConverter implements ConverterInterface
         }
 
         $source = (string)$source;
-        if(0 === mb_strlen($source)) {
+        if('' === $source) {
             $msg = 'How about a non-empty string?';
             throw new \InvalidArgumentException($msg);
         }

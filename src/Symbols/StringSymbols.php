@@ -1,12 +1,10 @@
 <?php
 namespace Thunder\Numbase\Symbols;
 
-use Thunder\Numbase\SymbolsInterface;
-
 /**
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
  */
-final class StringSymbols extends AbstractSymbols implements SymbolsInterface
+final class StringSymbols extends AbstractSymbols
 {
     public function __construct($string)
     {

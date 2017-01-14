@@ -13,9 +13,8 @@ abstract class AbstractSymbols implements SymbolsInterface
 
     public function getSymbol($value)
     {
-        if(!array_key_exists($value, $this->symbols)) {
-            $msg = 'No symbol matching value %s!';
-            throw new \InvalidArgumentException(sprintf($msg, $value));
+        if(false === array_key_exists($value, $this->symbols)) {
+            throw new \InvalidArgumentException(sprintf('No symbol matching value %s!', $value));
         }
 
         return $this->symbols[$value];
@@ -23,9 +22,8 @@ abstract class AbstractSymbols implements SymbolsInterface
 
     public function getValue($symbol)
     {
-        if(!array_key_exists($symbol, $this->reverseSymbols)) {
-            $msg = 'No value matching symbol %s!';
-            throw new \InvalidArgumentException(sprintf($msg, $symbol));
+        if(false === array_key_exists($symbol, $this->reverseSymbols)) {
+            throw new \InvalidArgumentException(sprintf('No value matching symbol %s!', $symbol));
         }
 
         return $this->reverseSymbols[$symbol];
