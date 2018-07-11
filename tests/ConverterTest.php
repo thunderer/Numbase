@@ -5,11 +5,13 @@ use Thunder\Numbase\Converter\BaseConvertConverter;
 use Thunder\Numbase\Converter\GmpConverter;
 use Thunder\Numbase\Converter\GmpStrvalConverter;
 use Thunder\Numbase\Symbols\Base62Symbols;
+use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
  */
-final class ConverterTest extends \PHPUnit_Framework_TestCase
+final class ConverterTest extends TestCase
 {
     public function testGmpConverter()
     {
@@ -30,21 +32,21 @@ final class ConverterTest extends \PHPUnit_Framework_TestCase
     public function testGmpStrvalExceptionOnInvalidSourceBase()
     {
         $converter = new GmpStrvalConverter(new Base62Symbols());
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $converter->convert('10', 1, 10);
     }
 
     public function testGmpStrvalExceptionOnInvalidTargetBase()
     {
         $converter = new GmpStrvalConverter(new Base62Symbols());
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $converter->convert('10', 10, 63);
     }
 
     public function testGmpStrvalExceptionOnEmptyNumber()
     {
         $converter = new GmpStrvalConverter(new Base62Symbols());
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $converter->convert('', 10, 20);
     }
 
@@ -60,21 +62,21 @@ final class ConverterTest extends \PHPUnit_Framework_TestCase
     public function testBaseConvertExceptionOnInvalidSourceBase()
     {
         $converter = new BaseConvertConverter(new Base62Symbols());
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $converter->convert('10', 40, 10);
     }
 
     public function testBaseConvertExceptionOnInvalidTargetBase()
     {
         $converter = new BaseConvertConverter(new Base62Symbols());
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $converter->convert('10', 10, 40);
     }
 
     public function testBaseConvertExceptionOnEmptyNumber()
     {
         $converter = new BaseConvertConverter(new Base62Symbols());
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $converter->convert('', 10, 20);
     }
 }

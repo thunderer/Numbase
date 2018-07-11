@@ -5,11 +5,13 @@ use Thunder\Numbase\Symbols\ArraySymbols;
 use Thunder\Numbase\Symbols\Base10Symbols;
 use Thunder\Numbase\Symbols\Base62Symbols;
 use Thunder\Numbase\Symbols\StringSymbols;
+use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
  */
-final class SymbolsTest extends \PHPUnit_Framework_TestCase
+final class SymbolsTest extends TestCase
 {
     public function testBase62Symbols()
     {
@@ -62,14 +64,14 @@ final class SymbolsTest extends \PHPUnit_Framework_TestCase
     public function testExceptionMissingSymbol()
     {
         $symbols = new Base62Symbols();
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $symbols->getSymbol('#');
     }
 
     public function testExceptionMissingValue()
     {
         $symbols = new Base62Symbols();
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $symbols->getValue('#');
     }
 }
