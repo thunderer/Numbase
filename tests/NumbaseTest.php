@@ -7,11 +7,13 @@ use Thunder\Numbase\Numbase;
 use Thunder\Numbase\Symbols\ArraySymbols;
 use Thunder\Numbase\Symbols\Base62Symbols;
 use Thunder\Numbase\Symbols\StringSymbols;
+use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
  */
-final class NumbaseTest extends \PHPUnit_Framework_TestCase
+final class NumbaseTest extends TestCase
 {
     /**
      * @dataProvider provideNumbase
@@ -90,21 +92,21 @@ final class NumbaseTest extends \PHPUnit_Framework_TestCase
     public function testExceptionOnInvalidSourceBase()
     {
         $numbase = Numbase::createDefault();
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $numbase->convert(10, 1, 16);
     }
 
     public function testExceptionOnInvalidTargetBase()
     {
         $numbase = Numbase::createDefault();
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $numbase->convert(10, 10, -20);
     }
 
     public function testExceptionOnEmptyNumber()
     {
         $numbase = Numbase::createDefault();
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $numbase->convert('', 10, 10);
     }
 }

@@ -5,11 +5,13 @@ use Thunder\Numbase\Formatter\ArrayFormatter;
 use Thunder\Numbase\Formatter\FallbackFormatter;
 use Thunder\Numbase\Formatter\StrictFormatter;
 use Thunder\Numbase\Symbols\Base62Symbols;
+use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
  */
-final class FormatterTest extends \PHPUnit_Framework_TestCase
+final class FormatterTest extends TestCase
 {
     public function testFormatters()
     {
@@ -31,7 +33,7 @@ final class FormatterTest extends \PHPUnit_Framework_TestCase
     public function testExceptionInvalidSymbolStrictFormatter()
     {
         $formatter = new StrictFormatter(new Base62Symbols());
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $formatter->format(array(100), false);
     }
 }
