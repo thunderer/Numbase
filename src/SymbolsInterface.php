@@ -6,39 +6,15 @@ namespace Thunder\Numbase;
  */
 interface SymbolsInterface
 {
-    /**
-     * Returns symbol matching given value.
-     *
-     * @param $value
-     *
-     * @return string
-     */
-    public function getSymbol($value);
+    /** Returns symbol matching given value. */
+    public function getSymbol(int $value): string;
 
-    /**
-     * Returns value matching given symbol.
-     *
-     * @param $symbol
-     *
-     * @return int
-     */
-    public function getValue($symbol);
+    /** Returns value matching given symbol. */
+    public function getValue(string $symbol): int;
 
-    /**
-     * Tests whether current set contains given symbol.
-     *
-     * @param $symbol
-     *
-     * @return bool
-     */
-    public function hasSymbol($symbol);
+    /** Tests whether current set contains given symbol. */
+    public function hasSymbol(string $symbol): bool;
 
-    /**
-     * Tests whether current set contains given value.
-     *
-     * @param $value
-     *
-     * @return bool
-     */
-    public function hasValue($value);
+    /** Tests whether current set contains given value. */
+    public function hasValue(int $value): bool;
 }

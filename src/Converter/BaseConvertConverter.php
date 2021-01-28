@@ -9,33 +9,31 @@ use Thunder\Numbase\SymbolsInterface;
  */
 final class BaseConvertConverter implements ConverterInterface
 {
-    private $symbols;
+    private SymbolsInterface $symbols;
 
     public function __construct(SymbolsInterface $symbols)
     {
         $this->symbols = $symbols;
     }
 
-    public function convert($source, $sourceBase, $targetBase)
+    public function convert(string $number, int $sourceBase, int $targetBase): array
     {
         if($sourceBase < 2 || $targetBase < 2 || $sourceBase > 36 || $targetBase > 36) {
             $msg = 'Invalid source or target base, must be an integer between 2 and 36!';
             throw new \InvalidArgumentException(sprintf($msg));
         }
 
-        $source = (string)$source;
-        if('' === $source) {
-            $msg = 'How about a non-empty string?';
-            throw new \InvalidArgumentException($msg);
+        if('' === $number) {
+            throw new \InvalidArgumentException('How about a non-empty string?');
         }
 
-        $digits = str_split((string)base_convert($source, $sourceBase, $targetBase), 1);
+        $digits = str_split(base_convert($number, $sourceBase, $targetBase), 1);
 
         // base_convert() returns lowercase characters so they need to be
         // uppercased because lowercased come in latter
-        $digits = array_map('strtoupper', $digits);
-        $digits = array_map(array($this->symbols, 'getValue'), $digits);
+        $symbolToValue = function(string $symbol): int { return $this->symbols->getValue($symbol); };
+        $digitToUppercase = function(string $digit): string { return strtoupper($digit); };
 
-        return array_map('strval', $digits);
+        return array_map($symbolToValue, array_map($digitToUppercase, $digits));
     }
 }

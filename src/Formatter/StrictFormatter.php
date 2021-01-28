@@ -9,15 +9,15 @@ use Thunder\Numbase\SymbolsInterface;
  */
 final class StrictFormatter implements FormatterInterface
 {
-    private $symbols;
+    private SymbolsInterface $symbols;
 
     public function __construct(SymbolsInterface $symbols)
     {
         $this->symbols = $symbols;
     }
 
-    public function format(array $digits, $signed)
+    public function format(array $digits, bool $signed)
     {
-        return ($signed ? '-' : '').implode('', array_map(array($this->symbols, 'getSymbol'), $digits));
+        return ($signed ? '-' : '').implode('', array_map(function(int $digit) { return $this->symbols->getSymbol($digit); }, $digits));
     }
 }

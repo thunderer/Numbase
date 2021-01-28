@@ -6,6 +6,7 @@ namespace Thunder\Numbase\Symbols;
  */
 final class ArraySymbols extends AbstractSymbols
 {
+    /** @param array<int,string> $array */
     public function __construct(array $array)
     {
         $this->symbols = $array;

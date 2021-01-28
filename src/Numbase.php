@@ -10,8 +10,8 @@ use Thunder\Numbase\Symbols\Base62Symbols;
  */
 final class Numbase
 {
-    private $formatter;
-    private $converter;
+    private FormatterInterface $formatter;
+    private ConverterInterface $converter;
 
     public function __construct(ConverterInterface $converter, FormatterInterface $formatter)
     {
@@ -19,7 +19,7 @@ final class Numbase
         $this->converter = $converter;
     }
 
-    public static function createDefault(SymbolsInterface $symbols = null)
+    public static function createDefault(SymbolsInterface $symbols = null): self
     {
         $symbols = $symbols ?: new Base62Symbols();
 
@@ -36,7 +36,7 @@ final class Numbase
      *
      * @return mixed Depends on formatter
      */
-    public function convert($number, $fromBase, $toBase)
+    public function convert($number, int $fromBase, int $toBase)
     {
         $signed = false;
         $number = (string)$number;
