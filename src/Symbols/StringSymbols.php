@@ -6,6 +6,7 @@ namespace Thunder\Numbase\Symbols;
  */
 final class StringSymbols extends AbstractSymbols
 {
+    /** @param string $string */
     public function __construct($string)
     {
         $this->symbols = str_split($string, 1);

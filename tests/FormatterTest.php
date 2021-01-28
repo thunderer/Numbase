@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class FormatterTest extends TestCase
 {
-    public function testFormatters()
+    public function testFormatters(): void
     {
         $symbols = new Base62Symbols();
 
@@ -21,16 +21,16 @@ final class FormatterTest extends TestCase
         $strict = new StrictFormatter($symbols);
         $digits = new ArrayFormatter();
 
-        $this->assertEquals('12', $permissive->format(array(1, 2), false));
-        $this->assertEquals('100:200', $permissive->format(array(100, 200), false));
+        self::assertEquals('12', $permissive->format(array(1, 2), false));
+        self::assertEquals('100:200', $permissive->format(array(100, 200), false));
 
-        $this->assertEquals('12', $strict->format(array(1, 2), false));
+        self::assertEquals('12', $strict->format(array(1, 2), false));
 
-        $this->assertEquals(array(1, 2), $digits->format(array(1, 2), false));
-        $this->assertSame(array(100, 200), $digits->format(array(100, 200), false));
+        self::assertEquals(array(1, 2), $digits->format(array(1, 2), false));
+        self::assertSame(array(100, 200), $digits->format(array(100, 200), false));
     }
 
-    public function testExceptionInvalidSymbolStrictFormatter()
+    public function testExceptionInvalidSymbolStrictFormatter(): void
     {
         $formatter = new StrictFormatter(new Base62Symbols());
         $this->expectException(InvalidArgumentException::class);

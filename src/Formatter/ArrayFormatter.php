@@ -8,10 +8,10 @@ use Thunder\Numbase\FormatterInterface;
  */
 final class ArrayFormatter implements FormatterInterface
 {
-    public function format(array $digits, $signed)
+    public function format(array $digits, bool $signed)
     {
         if($signed) {
-            $digits[0] = '-'.$digits[0];
+            $digits[0] = -$digits[0];
         }
 
         return $digits;

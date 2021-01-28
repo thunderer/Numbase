@@ -9,28 +9,27 @@ use Thunder\Numbase\SymbolsInterface;
  */
 final class GmpConverter implements ConverterInterface
 {
-    private $symbols;
+    private SymbolsInterface $symbols;
 
     public function __construct(SymbolsInterface $symbols)
     {
         $this->symbols = $symbols;
     }
 
-    public function convert($source, $sourceBase, $targetBase)
+    public function convert(string $number, int $sourceBase, int $targetBase): array
     {
         if($sourceBase < 2 || $targetBase < 2) {
             throw new \InvalidArgumentException(sprintf('Invalid source or target base, must be an integer greater than one!'));
         }
 
-        $source = (string)$source;
-        if('' === $source) {
+        if('' === $number) {
             throw new \InvalidArgumentException('How about a non-empty string?');
         }
 
-        return $this->computeBaseNDigits($this->convertToBase10($source, $sourceBase), $targetBase);
+        return $this->computeBaseNDigits($this->convertToBase10($number, $sourceBase), $targetBase);
     }
 
-    private function convertToBase10($source, $sourceBase)
+    private function convertToBase10(string $source, int $sourceBase): \GMP
     {
         $int = gmp_init(0, 10);
         $length = mb_strlen($source) - 1;
@@ -44,22 +43,23 @@ final class GmpConverter implements ConverterInterface
         return $int;
     }
 
-    private function computeBaseNDigits($number, $targetBase)
+    /** @return int[] */
+    private function computeBaseNDigits(\GMP $number, int $targetBase): array
     {
-        $digits = array();
+        $digits = [];
         $length = $this->computeBaseNLength($number, $targetBase);
 
         for($i = 0; $i < $length; $i++) {
             $pow = gmp_pow($targetBase, $length - $i - 1);
             $div = gmp_div($number, $pow, GMP_ROUND_ZERO);
             $number = gmp_sub($number, gmp_mul($div, $pow));
-            $digits[] = $div;
+            $digits[] = (int)$div;
         }
 
-        return array_map('gmp_strval', $digits);
+        return $digits;
     }
 
-    private function computeBaseNLength($number, $targetBase)
+    private function computeBaseNLength(\GMP $number, int $targetBase): int
     {
         $digits = 0;
 

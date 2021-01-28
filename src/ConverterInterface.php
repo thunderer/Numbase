@@ -9,11 +9,7 @@ interface ConverterInterface
     /**
      * Converts number from source to target base and return digits array
      *
-     * @param string $number
-     * @param int $sourceBase
-     * @param int $targetBase
-     *
-     * @return array
+     * @return int[]
      */
-    public function convert($number, $sourceBase, $targetBase);
+    public function convert(string $number, int $sourceBase, int $targetBase): array;
 }

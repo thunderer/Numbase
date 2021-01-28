@@ -9,10 +9,9 @@ interface FormatterInterface
     /**
      * Formats computed digits to a final result.
      *
-     * @param string[] $digits
-     * @param bool $signed
+     * @param int[] $digits
      *
      * @return mixed
      */
-    public function format(array $digits, $signed);
+    public function format(array $digits, bool $signed);
 }

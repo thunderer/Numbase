@@ -15,15 +15,13 @@ use PHPUnit\Framework\TestCase;
  */
 final class NumbaseTest extends TestCase
 {
-    /**
-     * @dataProvider provideNumbase
-     */
+    /** @dataProvider provideNumbase */
     public function testNumbase(Numbase $numbase, $source, $from, $to, $result)
     {
-        $this->assertSame($result, $numbase->convert($source, $from, $to));
+        self::assertSame($result, $numbase->convert($source, $from, $to));
 
         if(false === strpos($result, ':')) {
-            $this->assertSame($source, $numbase->convert($result, $to, $from));
+            self::assertSame($source, $numbase->convert($result, $to, $from));
         }
     }
 
@@ -70,40 +68,38 @@ final class NumbaseTest extends TestCase
      *
      * @dataProvider provideLoop
      */
-    public function testLoop($num)
+    public function testLoop(int $num): void
     {
         $base62 = Numbase::createDefault();
-        $this->assertSame((string)$num, $base62->convert($base62->convert($num, 10, 62), 62, 10));
+        self::assertSame((string)$num, $base62->convert($base62->convert($num, 10, 62), 62, 10));
     }
 
-    public function provideLoop()
+    public function provideLoop(): array
     {
-        return array_map(function ($item) {
-            return array($item);
-        }, range(-1, 1));
+        return array_map(fn($item) => [$item], range(-1, 1));
     }
 
-    public function testOtherFormatters()
+    public function testOtherFormatters(): void
     {
         $array = new Numbase(new GmpConverter(new Base62Symbols()), new ArrayFormatter());
-        $this->assertSame(array('-1', '0'), $array->convert(-10, 10, 10));
+        self::assertSame(array(-1, 0), $array->convert(-10, 10, 10));
     }
 
-    public function testExceptionOnInvalidSourceBase()
+    public function testExceptionOnInvalidSourceBase(): void
     {
         $numbase = Numbase::createDefault();
         $this->expectException(InvalidArgumentException::class);
         $numbase->convert(10, 1, 16);
     }
 
-    public function testExceptionOnInvalidTargetBase()
+    public function testExceptionOnInvalidTargetBase(): void
     {
         $numbase = Numbase::createDefault();
         $this->expectException(InvalidArgumentException::class);
         $numbase->convert(10, 10, -20);
     }
 
-    public function testExceptionOnEmptyNumber()
+    public function testExceptionOnEmptyNumber(): void
     {
         $numbase = Numbase::createDefault();
         $this->expectException(InvalidArgumentException::class);
