@@ -3,16 +3,13 @@
 ![Build](https://github.com/thunderer/Numbase/actions/workflows/test.yaml/badge.svg)
 [![License](https://poser.pugx.org/thunderer/numbase/license.svg)](https://packagist.org/packages/thunderer/numbase)
 [![Version](https://poser.pugx.org/thunderer/numbase/v/stable.svg)](https://packagist.org/packages/thunderer/numbase)
+[![Psalm](https://shepherd.dev/github/thunderer/Numbase/coverage.svg)](https://shepherd.dev/github/thunderer/Numbase)
 
 Easily convert numbers between arbitrary bases and symbol sets.
 
-## Requirements
-
-This library requires PHP >=5.3 (namespaces) and GMP extension (for handling large numbers exceeding PHP capabilities).
-
 ## Installation
 
-This library is available on [Packagist](https://packagist.org/packages/thunderer/numbase) as `thunderer/numbase`.
+This library is available on [Packagist](https://packagist.org/packages/thunderer/numbase) as `thunderer/numbase`. It requires PHP `>=7.4` and GMP extension for handling large numbers. For older PHP versions please use `^0.1` constraint which works with `5.3` and above.
 
 ## Usage
 

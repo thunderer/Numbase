@@ -35,5 +35,5 @@ jobs:
         run: 'php vendor/bin/phpunit --coverage-text'
         continue-on-error: '${{ matrix.failure }}'
       - name: 'Psalm'
-        run: 'php vendor/bin/psalm'
+        run: 'php vendor/bin/psalm --shepherd'
         continue-on-error: '${{ matrix.failure }}'
